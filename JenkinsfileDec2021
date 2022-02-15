@@ -3,6 +3,11 @@ node{
     properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5')), [$class: 'JobLocalConfiguration', changeReasonComment: ''], pipelineTriggers([pollSCM('* * * * *')])])
     
     def mavenHome = tool name: "Maven 3.8.3"
+    triggers {
+  pollSCM ('* * * * *')
+  cron ('* * * * *')
+}
+    
 stage('CheckoutCode'){
 git branch: 'development', credentialsId: 'eb612bea-115b-4238-8c69-47ab63cb20ab', url: 'https://github.com/VASAAVI-DevOps/maven-web-application.git'
 }
